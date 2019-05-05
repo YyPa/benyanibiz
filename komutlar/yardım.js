@@ -1,29 +1,32 @@
-const fs = require("fs");
-const Discord = require("discord.js");
+const Discord = require('discord.js');
+const ayarlar = require('../ayarlar.json');
 
-module.exports.run = async(bot, message, args, con) => {
-    fs.readdir("./cmds/", (err, files) => {
-        if(err) console.error(err);
+var prefix = ayarlar.prefix;
 
-        let jsfiles = files.filter(f => f.split(".").pop() === "js");
-        if(jsfiles.length <= 0) {
-            console.log("No commands to load!");
-            return;
-        }
-var namelist = "";
-var desclist = "";
-var usage = "";
+exports.run = (client, message, params) => {
 
-let result = jsfiles.forEach((f, i) => {
-    let props = require(`./${f}`);
-    namelist = props.help.name;
-    desclist = props.help.description;
-    usage = props.help.usage;
+  if (!params[0]) {
+    const commandNames = Array.from(client.commands.keys());
+    const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
+    message.author.sendCode('asciidoc', `= Komutlar =\n\n${client.commands.map(c => `${ayarlar.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} `).join('\n')}`);
+  if (message.channel.type !== 'dm') {
+    const ozelmesajkontrol = new Discord.RichEmbed()
+    .setColor(`RANDOM`)
+    .setTimestamp()
+    .setAuthor(message.author.username, message.author.avatarURL)
+    .setDescription('Mesajlarını kontrol et. 💌')
+	.setFooter('Bütün Komutlarımı Yolladım İyiye Kullanman Dileğimizle :)');
+    message.channel.sendEmbed(ozelmesajkontrol) }
+  } else {
+    let command = params[0];
+    if (client.commands.has(command)) {
+      command = client.commands.get(command);
+      message.author.sendCode('asciidoc', `= ${command.help.name} = \n${command.help.description}\nDoğru kullanım: ` + prefix + `${command.help.usage}`);
+    }
+  }
 
-    // send help text
-    message.author.send(`**${namelist}** \n${desclist} \n${usage}`);
-});
-	    
+};
+
 exports.conf = {
   enabled: true,
   guildOnly: false,
