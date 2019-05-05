@@ -8,7 +8,7 @@ exports.run = (client, message, params) => {
   .setTitle("Komutlar")
   .setDescription('')
   .setColor(0x00ffff)
-  .addField(`**Komutlar**\n\n${client.commands.map(c => `${ayarlar.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)}`).join('\n')}`).join('\n')}`)
+  .addField(""**Komutlar**"", '${client.commands.map(c => `${ayarlar.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)}`).join('\n')}`).join('\n')}`)
   .setFooter('**--------------------------**')
   if (!params[0]) {
     const commandNames = Array.from(client.commands.keys());
