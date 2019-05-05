@@ -1,7 +1,7 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 
-module.exports.run = async(bot, message, args, con) => {
+exports.run = async(bot, message, args, con) => {
     fs.readdir("./cmds/", (err, files) => {
         if(err) console.error(err);
 
@@ -10,10 +10,6 @@ module.exports.run = async(bot, message, args, con) => {
             console.log("No commands to load!");
             return;
         }
-var namelist = "";
-var desclist = "";
-var usage = "";
-
 let result = jsfiles.forEach((f, i) => {
     let props = require(`./${f}`);
     namelist = props.help.name;
@@ -24,8 +20,16 @@ let result = jsfiles.forEach((f, i) => {
     message.author.send(`**${namelist}** \n${desclist} \n${usage}`);
 });
 
-module.exports.help = {
-    name: "yardım",
-    description: "yardım",
-    usage: "yardım"
-}
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['h', 'halp', 'help', 'y'],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'yardım',
+  description: 'Tüm komutları gösterir.',
+  usage: 'yardım [komut]'
+};
+
