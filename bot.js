@@ -79,9 +79,6 @@ client.unload = command => {
 };
 
 client.on('message', msg => {
-  if (msg.content.toLowerCase() === 'sa') {
-        msg.reply('Aleyküm selam, hoş geldin :heart: ');
-  }
   if (msg.content.toLowerCase() === 'hb') {
         msg.reply('İyimisin ? **(iyi sen Yazarak Konuşmayı Devam Ettirebilirsiniz)** ');
   }
