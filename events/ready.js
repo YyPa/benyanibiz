@@ -18,12 +18,7 @@ console.log('Bot hazır ve giriş yaptı.')
 console.log(`${client.guilds.size} Sunucuyu + ${client.users.size} Kullanıcıyı + Senin Küfürlerini İzliyor`);
 
     var Games = [
-
-        "》185.198.73.75:27015《",
-		
-		"》İyi Oyunlar Dileriz《",
-		
-		
+	    
         `》 ${prefix}yardım , ${client.guilds.size} Sunucuyu + ${client.users.size} Kullanıcıyı Gözlüyor《`
 
 
